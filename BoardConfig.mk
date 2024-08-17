@@ -116,6 +116,7 @@ TARGET_USES_LOGD := true
 TW_HAS_DOWNLOAD_MODE := true
 #TW_EXCLUDE_DEFAULT_USB_INIT := true
 TW_NO_REBOOT_BOOTLOADER := true
+TW_FORCE_KEYMASTER_VER := true
 TW_ENABLE_FS_COMPRESSION := true
 TW_INCLUDE_NTFS_3G := true
 TW_INCLUDE_RESETPROP := true
@@ -129,6 +130,6 @@ TW_BRIGHTNESS_PATH := "/sys/class/backlight/panel/brightness"
 TW_CUSTOM_CPU_TEMP_PATH := /sys/devices/virtual/thermal/thermal_zone4/temp
 
 #crypto
-TW_INCLUDE_CRYPTO := false
-TW_INCLUDE_CRYPTO_FBE := false
+TW_INCLUDE_CRYPTO := true
+TW_INCLUDE_CRYPTO_FBE := true
 TW_INCLUDE_FBE_METADATA_DECRYPT := true

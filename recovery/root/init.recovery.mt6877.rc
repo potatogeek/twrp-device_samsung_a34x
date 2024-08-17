@@ -1,3 +1,9 @@
+import /init.recovery.teegris.rc
+
+on early-init
+    mkdir /mnt/vendor/efs 0771 radio system
+    start extract_ta
+
 on init
     setprop sys.usb.configfs 1
 
@@ -38,3 +44,10 @@ on post-fs
 
 on boot
     start health-hal-2-1
+
+service extract_ta /vendor/bin/extract_ta.sh
+    user root
+    group root
+    disabled
+    oneshot
+    seclabel u:r:recovery:s0
