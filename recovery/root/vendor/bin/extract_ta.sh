@@ -18,8 +18,8 @@ BOOTLOADER=`getprop ro.boot.bootloader`
 if [ -f "/vendor/tee/$BOOTLOADER.tar" ]; then
   log -t "extract_ta" -p i "Bootloader version: $BOOTLOADER, found $BOOTLOADER.tar";
   tar -xf "/vendor/tee/$BOOTLOADER.tar" -C "/vendor/tee";
+  setprop "crypto.ready" "1";
 else
   log -t "extract_ta" -p e "Bootloader version not supported: $BOOTLOADER. Hell naw.";
 fi;
 
-setprop "crypto.ready" "1";
