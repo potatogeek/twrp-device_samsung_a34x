@@ -13,13 +13,25 @@
 # limitations under the License.
 #
 
-BOOTLOADER=`getprop ro.boot.bootloader`
+while ! test -e "/dev/block/mapper/vendor";
+do
+  sleep 1;
+done;
 
-if [ -f "/vendor/tee/$BOOTLOADER.tar" ]; then
-  log -t "extract_ta" -p i "Bootloader version: $BOOTLOADER, found $BOOTLOADER.tar";
-  tar -xf "/vendor/tee/$BOOTLOADER.tar" -C "/vendor/tee";
-  setprop "crypto.ready" "1";
-else
-  log -t "extract_ta" -p e "Bootloader version not supported: $BOOTLOADER. Hell naw.";
-fi;
+mkdir -p "/tmp/vendor";
+if mount -o ro "/dev/block/mapper/vendor" "/tmp/vendor"; then
+  mkdir -m 755 "/vendor/tee";
+  mkdir -m 755 "/vendor/tee/driver";
 
+  # Copy TEE blobs folder
+  cp -p -r "/tmp/vendor/tee" \
+    "/vendor/tee";
+
+  umount "/tmp/vendor";
+fi
+
+rm -r "/tmp/vendor";
+
+setprop "crypto.ready" "1";
+
+exit 0;
